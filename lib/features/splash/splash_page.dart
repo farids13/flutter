@@ -37,7 +37,7 @@ class _SplashPageState extends State<SplashPage> {
     var prefs = await SharedPreferences.getInstance();
     var token = prefs.getString("token");
     if (token != null && token.isNotEmpty) {
-      context.pushReplacement('/home/$token');
+      context.pushReplacement('/home/""');
     } else {
       context.go('/login');
     }

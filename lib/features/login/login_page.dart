@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:simple_flutter_template/features/home/home_view_model.dart';
 import 'package:uuid/uuid.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,12 +12,6 @@ class _LoginPageState extends State<LoginPage> {
   var username = '';
   var usernameController = TextEditingController();
   var passwordController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    HomeViewModel.unregister();
-  }
 
   @override
   Widget build(BuildContext context) {
