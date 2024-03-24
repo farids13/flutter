@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_flutter_template/drawer.dart';
 
 class SocialPage extends StatelessWidget {
@@ -34,8 +35,28 @@ class SocialPage extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  decoration: BoxDecoration(),
-                )
+                  margin: EdgeInsets.only(top: 20),
+                  child: CircleAvatar(
+                    radius: 55,
+                    child: Icon(
+                      Icons.account_circle,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 28),
+                Container(
+                  child: Column(
+                    children: [
+                      Text(
+                        "Jessica Randall",
+                        style: GoogleFonts.inter(
+                          fontSize: 27,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
