@@ -16,8 +16,8 @@ class TokenView extends StatelessWidget with WatchItMixin {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Token: $token",
-            style: TextStyle(fontSize: 24),
+            "Token: $token ",
+            style: TextStyle(fontSize: 16),
           ),
           SizedBox(height: 16),
           Text(

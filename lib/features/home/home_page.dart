@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_flutter_template/drawer.dart';
 import 'package:simple_flutter_template/features/home/home_view_model.dart';
 import 'package:simple_flutter_template/features/home/views/counter_button_view.dart';
 import 'package:simple_flutter_template/features/home/views/counter_view.dart';
@@ -31,26 +32,32 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Text('Home Page : ${widget.username}'),
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.blue,
       ),
+      drawer: drawerList(context, username: widget.username),
       body: Column(
         children: [
           Expanded(
-            child: Row(
+            child: Column(
               children: [
-                Expanded(child: LogoutButtonView()),
                 Expanded(child: TokenView(username: widget.username)),
+                Expanded(child: LogoutButtonView()),
               ],
             ),
           ),
           Expanded(
-            child: Row(
-              children: [
-                Expanded(child: CounterView()),
-                Expanded(child: CounterButtonView()),
-              ],
+            child: Container(
+              decoration: BoxDecoration(border: Border.all(color: Colors.red)),
+              child: Column(
+                children: [
+                  Expanded(child: CounterView()),
+                  Expanded(child: CounterButtonView()),
+                ],
+              ),
             ),
-          )
+          ),
         ],
       ),
     );

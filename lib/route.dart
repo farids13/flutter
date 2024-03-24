@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
+import 'package:simple_flutter_template/features/easy_ui/social_page.dart';
 import 'package:simple_flutter_template/features/home/home_page.dart';
 import 'package:simple_flutter_template/features/login/login_page.dart';
+import 'package:simple_flutter_template/features/easy_ui/qr_page.dart';
 import 'package:simple_flutter_template/features/splash/splash_page.dart';
 
 final appRouter = GoRouter(
@@ -13,6 +15,16 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/login',
       builder: (context, state) => LoginPage(),
+    ),
+    GoRoute(
+      path: '/qr',
+      builder: (context, state) => QrPage(
+        username: state.pathParameters['username'] ?? '',
+      ),
+    ),
+    GoRoute(
+      path: '/social',
+      builder: (context, state) => SocialPage(),
     ),
     GoRoute(
       path: '/home/:username',

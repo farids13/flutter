@@ -10,6 +10,13 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  var _username = '';
+  String get username => _username;
+  set username(String value) {
+    _username = value;
+    notifyListeners();
+  }
+
   var _counter = 0;
   int get counter => _counter;
   set counter(int value) {
@@ -19,6 +26,10 @@ class HomeViewModel extends ChangeNotifier {
 
   void incrementCounter() {
     counter++;
+  }
+
+  void decreaseCounter() {
+    counter--;
   }
 
   void logOut() {

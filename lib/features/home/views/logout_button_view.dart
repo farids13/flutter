@@ -10,7 +10,7 @@ class LogoutButtonView extends StatelessWidget with WatchItMixin {
       child: ElevatedButton(
         onPressed: () {
           di<HomeViewModel>().logOut();
-          context.pushReplacement('/');
+          context.pushReplacement('/login');
         },
         child: Text('Log Out'),
       ),

@@ -18,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Login Page'),
+        bottomOpacity: 1.2,
       ),
       body: Center(
         child: Padding(
@@ -33,21 +34,21 @@ class _LoginPageState extends State<LoginPage> {
               TextField(
                 controller: usernameController,
                 decoration: InputDecoration(
-                  labelText: 'Username',
+                  labelText: 'Nama Pengguna',
                 ),
               ),
               SizedBox(height: 10),
               TextField(
                 controller: passwordController,
                 decoration: InputDecoration(
-                  labelText: 'Password',
+                  labelText: 'Kata Kunci',
                 ),
                 obscureText: true,
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () => _login(),
-                child: Text('Login'),
+                child: Text('Sign In'),
               ),
               Visibility(
                 child: SizedBox(height: 40),
