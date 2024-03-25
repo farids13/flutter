@@ -28,6 +28,12 @@ Widget drawerList(BuildContext context, {required String username}) {
           onTap: () => context.go('/'),
         ),
         ListTile(
+          title: Text("Tip Calculator"),
+          iconColor: Colors.blue,
+          leading: Icon(Icons.calculate),
+          onTap: () => context.go('/tip/calculator'),
+        ),
+        ListTile(
           title: Text('QR Barcode Design'),
           iconColor: Colors.blue,
           leading: Icon(Icons.qr_code),
