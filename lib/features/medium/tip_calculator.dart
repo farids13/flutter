@@ -17,6 +17,13 @@ class _TipCalculatorState extends State<TipCalculator> {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle style = TextStyle(
+      color: Color(0xff5e7a7d),
+      fontSize: 25,
+      fontFamily: GoogleFonts.spaceMono().fontFamily,
+      fontWeight: FontWeight.w700,
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Tip Calculator'),
@@ -27,7 +34,7 @@ class _TipCalculatorState extends State<TipCalculator> {
           image: DecorationImage(
             opacity: 0.6,
             image: AssetImage('assets/design/mobile-design-tip.jpg'),
-            fit: BoxFit.cover,
+            fit: BoxFit.fitHeight,
           ),
         ),
         child: Stack(
@@ -67,21 +74,31 @@ class _TipCalculatorState extends State<TipCalculator> {
                       height: 40,
                     ),
                     Container(
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
                       child: TextField(
-                        style: TextStyle(
-                          color: Color(0xff5e7a7d),
-                          fontSize: 25,
-                          fontFamily: GoogleFonts.spaceMono().fontFamily,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: style,
                         textAlign: TextAlign.right,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.attach_money),
+                          label: Text(
+                            "Bill",
+                            style: style,
+                          ),
                           border: OutlineInputBorder(),
                           hintTextDirection: TextDirection.rtl,
                         ),
                       ),
+                    ),
+                    ButtonBar(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: Text(
+                            "5%",
+                            style: style,
+                          ),
+                        )
+                      ],
                     )
                   ],
                 ),
