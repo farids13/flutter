@@ -22,6 +22,12 @@ Widget drawerList(BuildContext context, {required String username}) {
           ),
         ),
         ListTile(
+          title: Text("Note"),
+          iconColor: Colors.blue,
+          leading: Icon(Icons.note),
+          onTap: () => context.go('/note'),
+        ),
+        ListTile(
           title: Text("Home"),
           iconColor: Colors.blue,
           leading: Icon(Icons.home),

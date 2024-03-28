@@ -13,10 +13,33 @@ class TipCalculator extends StatefulWidget {
 class _TipCalculatorState extends State<TipCalculator> {
   bool isBg = true;
 
+  final TextEditingController billController = TextEditingController();
+  final TextEditingController nopController = TextEditingController();
+
   double billAmount = 0;
   double tipPercentage = 0;
+  int numberOfPeople = 1;
   double tipAmount = 0;
   double totalAmount = 0;
+
+  void reset() {
+    setState(() {
+      billAmount = 0;
+      tipPercentage = 0;
+      numberOfPeople = 1;
+      tipAmount = 0;
+      totalAmount = 0;
+      billController.clear();
+      nopController.clear();
+    });
+  }
+
+  @override
+  void dispose() {
+    billController.dispose();
+    nopController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +111,7 @@ class _TipCalculatorState extends State<TipCalculator> {
               right: 0,
               top: MediaQuery.of(context).size.height * 0.15,
               child: Container(
+                height: MediaQuery.of(context).size.height * 0.85,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -112,6 +136,7 @@ class _TipCalculatorState extends State<TipCalculator> {
                       child: Container(
                         padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
                         child: TextField(
+                          controller: billController,
                           onChanged: (value) {
                             setState(() {
                               billAmount = double.parse(value);
@@ -138,8 +163,14 @@ class _TipCalculatorState extends State<TipCalculator> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              buttonStyle("5%", () => {}, null),
-                              buttonStyle("10%", () => {}, null),
+                              buttonStyle(
+                                  "5%",
+                                  () => {setState(() => tipPercentage = 0.05)},
+                                  null),
+                              buttonStyle(
+                                  "10%",
+                                  () => {setState(() => tipPercentage = 0.1)},
+                                  null),
                             ],
                           ),
                           SizedBox(
@@ -148,8 +179,14 @@ class _TipCalculatorState extends State<TipCalculator> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              buttonStyle("15%", () => {}, null),
-                              buttonStyle("20%", () => {}, null),
+                              buttonStyle(
+                                  "15%",
+                                  () => {setState(() => tipPercentage = 0.15)},
+                                  null),
+                              buttonStyle(
+                                  "20%",
+                                  () => {setState(() => tipPercentage = 0.2)},
+                                  null),
                             ],
                           ),
                           SizedBox(
@@ -158,8 +195,35 @@ class _TipCalculatorState extends State<TipCalculator> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              buttonStyle("Custom", () => {}, null),
-                              buttonStyle("Reset", () => {}, null),
+                              buttonStyle(
+                                "50%",
+                                () => {setState(() => tipPercentage = 0.5)},
+                                null,
+                              ),
+                              Container(
+                                width: 150,
+                                height: 50,
+                                child: TextField(
+                                  onChanged: (value) => {
+                                    setState(() {
+                                      tipPercentage = double.parse(value) / 100;
+                                    })
+                                  },
+                                  textAlign: TextAlign.right,
+                                  style: style,
+                                  decoration: InputDecoration(
+                                    label: Text(
+                                      "Custom",
+                                    ),
+                                    labelStyle: style,
+                                    contentPadding: EdgeInsets.only(left: 25),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0)),
+                                    hintTextDirection: TextDirection.rtl,
+                                  ),
+                                ),
+                              )
                             ],
                           ),
                         ],
@@ -168,6 +232,12 @@ class _TipCalculatorState extends State<TipCalculator> {
                     Container(
                       padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
                       child: TextField(
+                        controller: nopController,
+                        onChanged: (value) => {
+                          setState(() {
+                            numberOfPeople = int.parse(value);
+                          })
+                        },
                         style: style,
                         textAlign: TextAlign.right,
                         decoration: InputDecoration(
@@ -221,7 +291,7 @@ class _TipCalculatorState extends State<TipCalculator> {
                                             ),
                                           ),
                                           Text(
-                                            '\$$billAmount',
+                                            '\$${double.parse((billAmount * tipPercentage / numberOfPeople).toString()).toStringAsFixed(2)}',
                                             style: style,
                                           ),
                                         ],
@@ -249,13 +319,16 @@ class _TipCalculatorState extends State<TipCalculator> {
                                             ),
                                           ),
                                           Text(
-                                            '\$32.12',
+                                            '\$${double.parse(((billAmount + (billAmount * tipPercentage)) / numberOfPeople).toString()).toStringAsFixed(2)}',
                                             style: style,
                                           ),
                                         ],
                                       ),
-                                      buttonStyle(
-                                          "Reset", () => null, double.infinity),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      buttonStyle("Reset", () => {reset()},
+                                          double.infinity),
                                     ],
                                   ),
                                 ),

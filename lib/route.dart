@@ -3,6 +3,7 @@ import 'package:simple_flutter_template/features/easy_ui/social_page.dart';
 import 'package:simple_flutter_template/features/home/home_page.dart';
 import 'package:simple_flutter_template/features/login/login_page.dart';
 import 'package:simple_flutter_template/features/easy_ui/qr_page.dart';
+import 'package:simple_flutter_template/features/medium/note.dart';
 import 'package:simple_flutter_template/features/medium/tip_calculator.dart';
 import 'package:simple_flutter_template/features/splash/splash_page.dart';
 
@@ -30,6 +31,10 @@ final appRouter = GoRouter(
     GoRoute(
       path: "/tip/calculator",
       builder: (context, state) => TipCalculator(),
+    ),
+    GoRoute(
+      path: "/note",
+      builder: (context, state) => Note(),
     ),
     GoRoute(
       path: '/home/:username',
