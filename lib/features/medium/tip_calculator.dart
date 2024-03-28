@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_flutter_template/drawer.dart';
@@ -13,7 +11,12 @@ class TipCalculator extends StatefulWidget {
 }
 
 class _TipCalculatorState extends State<TipCalculator> {
-  bool isBg = false;
+  bool isBg = true;
+
+  double billAmount = 0;
+  double tipPercentage = 0;
+  double tipAmount = 0;
+  double totalAmount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,34 @@ class _TipCalculatorState extends State<TipCalculator> {
       fontWeight: FontWeight.w700,
     );
 
+    Widget buttonStyle(
+      String text,
+      Function() func,
+      double? width,
+    ) {
+      return SizedBox(
+        width: width ?? 150,
+        height: 50,
+        child: ElevatedButton(
+          onPressed: func,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xff5e7a7d),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+              fontFamily: GoogleFonts.spaceMono().fontFamily,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Tip Calculator'),
@@ -31,13 +62,14 @@ class _TipCalculatorState extends State<TipCalculator> {
       drawer: drawerList(context, username: "John Doe"),
       body: Container(
         decoration: BoxDecoration(
+          color: Color(0xffc5e4e7),
           image: DecorationImage(
-            opacity: 0.6,
+            opacity: 0.0,
             image: AssetImage('assets/design/mobile-design-tip.jpg'),
             fit: BoxFit.fitHeight,
           ),
         ),
-        child: Stack(
+        child: ListView(
           children: [
             Positioned(
               top: 10,
@@ -47,10 +79,6 @@ class _TipCalculatorState extends State<TipCalculator> {
               child: Container(
                 padding: EdgeInsets.all(30),
                 alignment: Alignment.topCenter,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.red),
-                  color: isBg ? Color(0xffc5e4e7) : Colors.transparent,
-                ),
                 child: SvgPicture.asset('assets/icons/tip/logo.svg'),
               ),
             ),
@@ -61,7 +89,13 @@ class _TipCalculatorState extends State<TipCalculator> {
               top: MediaQuery.of(context).size.height * 0.15,
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.yellow),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black54,
+                      blurRadius: 10.0,
+                      spreadRadius: 1.0,
+                    ),
+                  ],
                   color: isBg ? Colors.white : null,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
@@ -73,15 +107,73 @@ class _TipCalculatorState extends State<TipCalculator> {
                     SizedBox(
                       height: 40,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                        child: TextField(
+                          onChanged: (value) {
+                            setState(() {
+                              billAmount = double.parse(value);
+                            });
+                          },
+                          style: style,
+                          textAlign: TextAlign.right,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.attach_money),
+                            label: Text(
+                              "Bill",
+                              style: style,
+                            ),
+                            border: OutlineInputBorder(),
+                            hintTextDirection: TextDirection.rtl,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              buttonStyle("5%", () => {}, null),
+                              buttonStyle("10%", () => {}, null),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              buttonStyle("15%", () => {}, null),
+                              buttonStyle("20%", () => {}, null),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              buttonStyle("Custom", () => {}, null),
+                              buttonStyle("Reset", () => {}, null),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     Container(
                       padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
                       child: TextField(
                         style: style,
                         textAlign: TextAlign.right,
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.attach_money),
+                          prefixIcon: Icon(Icons.person),
                           label: Text(
-                            "Bill",
+                            "Number Of People",
                             style: style,
                           ),
                           border: OutlineInputBorder(),
@@ -89,16 +181,89 @@ class _TipCalculatorState extends State<TipCalculator> {
                         ),
                       ),
                     ),
-                    ButtonBar(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: Text(
-                            "5%",
-                            style: style,
-                          ),
-                        )
-                      ],
+                    Container(
+                      padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: LayoutBuilder(
+                          builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            double availableWidth = constraints.maxWidth;
+                            return Container(
+                              width: availableWidth,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.red),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text.rich(
+                                            TextSpan(
+                                              text: "Tip Amount",
+                                              style: style,
+                                              children: [
+                                                TextSpan(
+                                                  text: "\n/ person",
+                                                  style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Text(
+                                            '\$$billAmount',
+                                            style: style,
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text.rich(
+                                            TextSpan(
+                                              text: "Total",
+                                              style: style,
+                                              children: [
+                                                TextSpan(
+                                                  text: "\n/ person",
+                                                  style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Text(
+                                            '\$32.12',
+                                            style: style,
+                                          ),
+                                        ],
+                                      ),
+                                      buttonStyle(
+                                          "Reset", () => null, double.infinity),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     )
                   ],
                 ),

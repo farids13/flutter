@@ -37,25 +37,32 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.blue,
       ),
       drawer: drawerList(context, username: widget.username),
-      body: Column(
+      body: ListView(
         children: [
-          Expanded(
+          Column(
+            children: [
+              TokenView(username: widget.username),
+              LogoutButtonView(),
+            ],
+          ),
+          Container(
+            decoration: BoxDecoration(border: Border.all(color: Colors.red)),
             child: Column(
               children: [
-                Expanded(child: TokenView(username: widget.username)),
-                Expanded(child: LogoutButtonView()),
+                CounterView(),
+                CounterButtonView(),
               ],
             ),
           ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(border: Border.all(color: Colors.red)),
-              child: Column(
-                children: [
-                  Expanded(child: CounterView()),
-                  Expanded(child: CounterButtonView()),
-                ],
-              ),
+          SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+            onPressed: () => HomeViewModel().incrementCounter(),
+            child: Text('Buyer Om'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.green),
+              foregroundColor: MaterialStateProperty.all(Colors.white),
             ),
           ),
         ],
