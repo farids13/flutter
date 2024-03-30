@@ -111,7 +111,7 @@ class _TipCalculatorState extends State<TipCalculator> {
               right: 0,
               top: MediaQuery.of(context).size.height * 0.15,
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.85,
+                height: MediaQuery.of(context).size.height * 1.00,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(

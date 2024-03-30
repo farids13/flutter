@@ -13,7 +13,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2), () async {
+    Future.delayed(Duration(seconds: 1), () async {
       await _checkLoginStatus();
     });
   }
