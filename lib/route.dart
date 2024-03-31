@@ -3,6 +3,7 @@ import 'package:simple_flutter_template/features/easy_ui/social_page.dart';
 import 'package:simple_flutter_template/features/home/home_page.dart';
 import 'package:simple_flutter_template/features/login/login_page.dart';
 import 'package:simple_flutter_template/features/easy_ui/qr_page.dart';
+import 'package:simple_flutter_template/features/medium/note/add/note_add.dart';
 import 'package:simple_flutter_template/features/medium/note/note_view.dart';
 import 'package:simple_flutter_template/features/medium/tip_calculator.dart';
 import 'package:simple_flutter_template/features/splash/splash_page.dart';

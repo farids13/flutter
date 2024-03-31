@@ -13,7 +13,7 @@ class Note {
 List<Note> notes = [
   Note(
     id: '1',
-    title: 'Note 1',
+    title: 'Lorem Ipsum Dolor Sit Amet Lorem Ipsum Dolor Sit Amet',
     note: 'lorem ipsum dolor sit amet',
     createdAt: DateTime.now(),
   ),
