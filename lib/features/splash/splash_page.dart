@@ -36,7 +36,9 @@ class _SplashPageState extends State<SplashPage> {
   Future<void> _checkLoginStatus() async {
     var prefs = await SharedPreferences.getInstance();
     var token = prefs.getString("token");
-    if (token != null && token.isNotEmpty) {
+    String? username = prefs.getString("username");
+    if (token != null && token.isNotEmpty ||
+        username != null && username.isNotEmpty) {
       context.pushReplacement('/home/${prefs.getString('username')}');
     } else {
       context.go('/login');

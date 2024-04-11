@@ -3,12 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_flutter_template/Databases/notes_database.dart';
 import 'package:simple_flutter_template/models/NoteModel.dart';
 
 class UpsertNote extends StatefulWidget {
   final Note? note;
-  const UpsertNote({Key? key, this.note}) : super(key: key);
+  const UpsertNote({super.key, this.note});
 
   @override
   State<UpsertNote> createState() => UpsertNoteState();
@@ -28,6 +29,7 @@ class UpsertNoteState extends State<UpsertNote> {
     super.initState();
     _titleController = TextEditingController();
     _contentController = TextEditingController();
+
     if (widget.note != null) {
       _titleController.text = widget.note!.title;
       _contentController.text = widget.note!.note;
@@ -167,7 +169,12 @@ class UpsertNoteState extends State<UpsertNote> {
                               ),
                             ),
                           ),
-                          onPressed: addOrUpdateNote,
+                          onPressed: () async {
+                            addOrUpdateNote();
+                            var pref = await SharedPreferences.getInstance();
+                            final username = pref.getString("username");
+                            context.pushReplacement("/note/$username");
+                          },
                           child: Text(
                             "Save",
                             style: TextStyle(color: Colors.white),
@@ -235,7 +242,6 @@ class UpsertNoteState extends State<UpsertNote> {
       } else {
         addNote();
       }
-      context.pushReplacement("/note");
     }
   }
 
