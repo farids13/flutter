@@ -3,7 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_flutter_template/drawer.dart';
 
 class SocialPage extends StatelessWidget {
-  const SocialPage({super.key});
+  final String username;
+  const SocialPage({super.key, required this.username});
 
   Widget buttonRondedStyle(String buttonText) {
     return Container(
@@ -50,7 +51,7 @@ class SocialPage extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.blue,
       ),
-      drawer: drawerList(context, username: ""),
+      drawer: drawerList(context, username: username),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

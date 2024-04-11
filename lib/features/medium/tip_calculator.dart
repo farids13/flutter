@@ -4,7 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_flutter_template/drawer.dart';
 
 class TipCalculator extends StatefulWidget {
-  const TipCalculator({super.key});
+  final String username;
+  const TipCalculator({super.key, required this.username});
 
   @override
   State<TipCalculator> createState() => _TipCalculatorState();
@@ -82,7 +83,7 @@ class _TipCalculatorState extends State<TipCalculator> {
       appBar: AppBar(
         title: Text('Tip Calculator'),
       ),
-      drawer: drawerList(context, username: "John Doe"),
+      drawer: drawerList(context, username: widget.username),
       body: Container(
         decoration: BoxDecoration(
           color: Color(0xffc5e4e7),

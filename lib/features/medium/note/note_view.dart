@@ -1,86 +1,62 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:simple_flutter_template/Databases/notes_database.dart';
 import 'package:simple_flutter_template/drawer.dart';
-import 'package:simple_flutter_template/features/medium/note/add/note_add.dart';
-import 'package:simple_flutter_template/models/Note.dart';
+import 'package:simple_flutter_template/features/medium/note/pages/note_detail_page.dart';
+import 'package:simple_flutter_template/features/medium/note/pages/upsert_note.dart';
+import 'package:simple_flutter_template/features/medium/note/widget/note_card_widget.dart';
+import 'package:simple_flutter_template/models/NoteModel.dart';
 
 class NoteView extends StatefulWidget {
-  const NoteView({super.key});
+  final String username;
+  const NoteView({super.key, required this.username});
 
   @override
   State<NoteView> createState() => _NoteState();
 }
 
-List<Color> _generateRandomColors(int count) {
-  List<Color> colors = [];
-  Random random = Random();
-  for (int i = 0; i < count; i++) {
-    colors.add(
-      Color.fromRGBO(
-        150 + random.nextInt(106), // Red
-        150 + random.nextInt(106), // Green
-        150 + random.nextInt(106), // Blue
-        1, // Alpha (opacity)
-      ),
-    );
-  }
-  return colors;
-}
-
 class _NoteState extends State<NoteView> {
+  List<Note> notesData = [];
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _fecthNotes();
+  }
+
+  Future<void> _fecthNotes() async {
+    List<Note> notes = await NotesDatabase.instance.getListNotes();
+    setState(() {
+      notesData = notes;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Note> notesData = notes;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'NoteView',
+          'Note View',
           textAlign: TextAlign.left,
         ),
       ),
-      drawer: drawerList(context, username: "Halo om "),
+      drawer: drawerList(context, username: widget.username),
       backgroundColor: Color(0xff252525),
       body: Container(
-        padding: EdgeInsets.all(10),
-        child: notesData.isEmpty
-            ? Container(
-                child: Center(
-                  child: Container(
-                    child: SvgPicture.asset("assets/icons/tip/logo.svg"),
-                  ),
-                ),
-              )
-            : ListView.builder(
-                itemCount: notesData.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                        color: _generateRandomColors(notesData.length)[index],
-                        borderRadius: BorderRadiusDirectional.circular(10)),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          textAlign: TextAlign.left,
-                          notesData[index].title,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: GoogleFonts.nunito().fontFamily,
-                          ),
-                        ),
-                      ),
+          padding: EdgeInsets.all(10),
+          child: notesData.isEmpty
+              ? Container(
+                  child: Center(
+                    child: Container(
+                      child: SvgPicture.asset("assets/icons/tip/logo.svg"),
                     ),
-                  );
-                },
-              ),
-      ),
+                  ),
+                )
+              : buildNotes()),
       floatingActionButton: Stack(
         children: [
           Positioned(
@@ -88,8 +64,8 @@ class _NoteState extends State<NoteView> {
             right: 10,
             child: FloatingActionButton(
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => AddNote()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => UpsertNote()));
               },
               splashColor: Colors.blue,
               backgroundColor: Color(0xff252525),
@@ -107,4 +83,34 @@ class _NoteState extends State<NoteView> {
       ),
     );
   }
+
+  Future refreshNotes() async {
+    setState(() => isLoading = true);
+
+    notesData = await NotesDatabase.instance.getListNotes();
+
+    setState(() => isLoading = false);
+  }
+
+  Widget buildNotes() => StaggeredGrid.count(
+      crossAxisCount: 2,
+      mainAxisSpacing: 4,
+      crossAxisSpacing: 4,
+      children: List.generate(notesData.length, (index) {
+        final note = notesData[index];
+        return StaggeredGridTile.fit(
+          crossAxisCellCount: 1,
+          child: GestureDetector(
+            onTap: () async {
+              await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => NoteDetailPage(
+                        noteId: note.id!,
+                      )));
+
+              refreshNotes();
+            },
+            child: NoteCardWidget(note: note, index: index),
+          ),
+        );
+      }));
 }

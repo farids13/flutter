@@ -22,29 +22,29 @@ Widget drawerList(BuildContext context, {required String username}) {
           ),
         ),
         ListTile(
-          title: Text("Note"),
-          iconColor: Colors.blue,
-          leading: Icon(Icons.note),
-          onTap: () => context.go('/note'),
-        ),
-        ListTile(
           title: Text("Home"),
           iconColor: Colors.blue,
           leading: Icon(Icons.home),
-          onTap: () => context.go('/'),
+          onTap: () => context.go('/home/$username'),
+        ),
+        ListTile(
+          title: Text("Note"),
+          iconColor: Colors.blue,
+          leading: Icon(Icons.note),
+          onTap: () => context.go('/note/$username'),
         ),
         ListTile(
           title: Text("Tip Calculator"),
           iconColor: Colors.blue,
           leading: Icon(Icons.calculate),
-          onTap: () => context.go('/tip/calculator'),
+          onTap: () => context.go('/tip/calculator/$username'),
         ),
         ListTile(
           title: Text('QR Barcode Design'),
           iconColor: Colors.blue,
           leading: Icon(Icons.qr_code),
           onTap: () {
-            context.go('/qr');
+            context.go('/qr/$username');
           },
         ),
         ListTile(
@@ -52,7 +52,7 @@ Widget drawerList(BuildContext context, {required String username}) {
           iconColor: Colors.blue,
           leading: Icon(Icons.account_circle),
           title: Text('Social Link Profile'),
-          onTap: () => context.go('/social'),
+          onTap: () => context.go('/social/$username'),
         )
       ],
     ),

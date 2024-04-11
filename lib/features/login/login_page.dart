@@ -78,6 +78,9 @@ class _LoginPageState extends State<LoginPage> {
       SharedPreferences.getInstance().then((prefs) {
         prefs.setString('token', token);
       });
+      SharedPreferences.getInstance().then((prefs) {
+        prefs.setString('username', username);
+      });
     }
   }
 }

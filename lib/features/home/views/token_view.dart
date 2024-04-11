@@ -10,6 +10,7 @@ class TokenView extends StatelessWidget with WatchItMixin {
   @override
   Widget build(BuildContext context) {
     final token = watchPropertyValue((HomeViewModel vm) => vm.token);
+    // final username = watchPropertyValue((HomeViewModel vm) => vm.username);
 
     return Center(
       child: Column(

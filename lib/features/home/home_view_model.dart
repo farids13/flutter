@@ -53,5 +53,9 @@ class HomeViewModel extends ChangeNotifier {
     SharedPreferences.getInstance().then((prefs) {
       di<HomeViewModel>().token = prefs.getString('token') ?? '';
     });
+
+    // SharedPreferences.getInstance().then((pref) {
+    //   di<HomeViewModel>().username = pref.getString('username') ?? '';
+    // });
   }
 }

@@ -3,7 +3,6 @@ import 'package:simple_flutter_template/features/easy_ui/social_page.dart';
 import 'package:simple_flutter_template/features/home/home_page.dart';
 import 'package:simple_flutter_template/features/login/login_page.dart';
 import 'package:simple_flutter_template/features/easy_ui/qr_page.dart';
-import 'package:simple_flutter_template/features/medium/note/add/note_add.dart';
 import 'package:simple_flutter_template/features/medium/note/note_view.dart';
 import 'package:simple_flutter_template/features/medium/tip_calculator.dart';
 import 'package:simple_flutter_template/features/splash/splash_page.dart';
@@ -20,22 +19,28 @@ final appRouter = GoRouter(
       builder: (context, state) => LoginPage(),
     ),
     GoRoute(
-      path: '/qr',
+      path: '/qr/:username',
       builder: (context, state) => QrPage(
         username: state.pathParameters['username'] ?? '',
       ),
     ),
     GoRoute(
-      path: '/social',
-      builder: (context, state) => SocialPage(),
+      path: '/social/:username',
+      builder: (context, state) => SocialPage(
+        username: state.pathParameters['username'] ?? '',
+      ),
     ),
     GoRoute(
-      path: "/tip/calculator",
-      builder: (context, state) => TipCalculator(),
+      path: "/tip/calculator/:username",
+      builder: (context, state) => TipCalculator(
+        username: state.pathParameters['username'] ?? '',
+      ),
     ),
     GoRoute(
-      path: "/note",
-      builder: (context, state) => NoteView(),
+      path: "/note/:username",
+      builder: (context, state) => NoteView(
+        username: state.pathParameters['username'] ?? '',
+      ),
     ),
     GoRoute(
       path: '/home/:username',
