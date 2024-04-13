@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:simple_flutter_template/drawer.dart';
+import 'package:note_apps/drawer.dart';
 
 class TipCalculator extends StatefulWidget {
   final String username;
@@ -93,7 +93,7 @@ class _TipCalculatorState extends State<TipCalculator> {
             fit: BoxFit.fitHeight,
           ),
         ),
-        child: ListView(
+        child: Stack(
           children: [
             Positioned(
               top: 10,
@@ -112,7 +112,7 @@ class _TipCalculatorState extends State<TipCalculator> {
               right: 0,
               top: MediaQuery.of(context).size.height * 0.15,
               child: Container(
-                height: MediaQuery.of(context).size.height * 1.00,
+                height: 2000,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -127,7 +127,7 @@ class _TipCalculatorState extends State<TipCalculator> {
                     topRight: Radius.circular(20),
                   ),
                 ),
-                child: Column(
+                child: ListView(
                   children: [
                     SizedBox(
                       height: 40,

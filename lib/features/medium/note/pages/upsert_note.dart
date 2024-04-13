@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:note_apps/databases/notes_database.dart';
+import 'package:note_apps/models/NoteModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:simple_flutter_template/Databases/notes_database.dart';
-import 'package:simple_flutter_template/models/NoteModel.dart';
 
 class UpsertNote extends StatefulWidget {
   final Note? note;

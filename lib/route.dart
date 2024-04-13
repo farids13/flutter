@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
-import 'package:simple_flutter_template/features/easy_ui/social_page.dart';
-import 'package:simple_flutter_template/features/home/home_page.dart';
-import 'package:simple_flutter_template/features/login/login_page.dart';
-import 'package:simple_flutter_template/features/easy_ui/qr_page.dart';
-import 'package:simple_flutter_template/features/medium/note/note_view.dart';
-import 'package:simple_flutter_template/features/medium/tip_calculator.dart';
-import 'package:simple_flutter_template/features/splash/splash_page.dart';
+import 'package:note_apps/features/easy_ui/qr_page.dart';
+import 'package:note_apps/features/easy_ui/social_page.dart';
+import 'package:note_apps/features/home/home_page.dart';
+import 'package:note_apps/features/login/login_page.dart';
+import 'package:note_apps/features/medium/note/note_view.dart';
+import 'package:note_apps/features/medium/tip_calculator.dart';
+import 'package:note_apps/features/splash/splash_page.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',

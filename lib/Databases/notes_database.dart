@@ -1,5 +1,5 @@
 import 'package:path/path.dart';
-import 'package:simple_flutter_template/models/NoteModel.dart';
+import 'package:note_apps/models/NoteModel.dart';
 import 'package:sqflite/sqflite.dart';
 
 class NotesDatabase {

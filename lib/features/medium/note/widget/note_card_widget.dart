@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:simple_flutter_template/models/NoteModel.dart';
+import 'package:note_apps/models/NoteModel.dart';
 
 final _lightColors = [
   Colors.amber.shade300,

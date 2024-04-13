@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:simple_flutter_template/Databases/notes_database.dart';
-import 'package:simple_flutter_template/features/medium/note/pages/upsert_note.dart';
-import 'package:simple_flutter_template/models/NoteModel.dart';
+import 'package:note_apps/Databases/notes_database.dart';
+import 'package:note_apps/features/medium/note/pages/upsert_note.dart';
+import 'package:note_apps/models/NoteModel.dart';
 
 class NoteDetailPage extends StatefulWidget {
   final int noteId;

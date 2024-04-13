@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_flutter_template/features/home/home_view_model.dart';
+import 'package:note_apps/features/home/home_view_model.dart';
 import 'package:watch_it/watch_it.dart';
 
 class CounterButtonView extends StatelessWidget with WatchItMixin {

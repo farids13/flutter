@@ -1,3 +1,3 @@
-# simple_flutter_template
+# note_apps
 
 A new Flutter project.
