@@ -40,7 +40,11 @@ class _HomePageState extends State<HomePage> {
       "doa-doa-api-ahmadramadhan.fly.dev",
       search.isEmpty ? "/api" : "/api/doa/$search",
     );
-    var response = await http.get(uri);
+
+    var response = await http.get(uri, headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    });
     if (response.statusCode == 200) {
       dynamic data = json.decode(response.body);
       if (data is List) {

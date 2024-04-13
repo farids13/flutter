@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:note_apps/features/home/home_view_model.dart';
 import 'package:watch_it/watch_it.dart';
@@ -11,6 +14,7 @@ class TokenView extends StatelessWidget with WatchItMixin {
   Widget build(BuildContext context) {
     final token = watchPropertyValue((HomeViewModel vm) => vm.token);
     // final username = watchPropertyValue((HomeViewModel vm) => vm.username);
+    final deviceId = watchPropertyValue((HomeViewModel vm) => vm.deviceId);
 
     return Center(
       child: Column(
@@ -25,6 +29,8 @@ class TokenView extends StatelessWidget with WatchItMixin {
             "Username: $username",
             style: TextStyle(fontSize: 18),
           ),
+          SizedBox(height: 16),
+          Text("DeviceId : $deviceId"),
         ],
       ),
     );

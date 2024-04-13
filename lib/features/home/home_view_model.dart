@@ -17,6 +17,13 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  var _deviceId = '';
+  String get deviceId => _deviceId;
+  set deviceId(String value) {
+    _deviceId = value;
+    notifyListeners();
+  }
+
   var _counter = 0;
   int get counter => _counter;
   set counter(int value) {
@@ -35,6 +42,9 @@ class HomeViewModel extends ChangeNotifier {
   void logOut() {
     SharedPreferences.getInstance().then((prefs) {
       prefs.remove('token');
+    });
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.remove('username');
     });
   }
 
@@ -56,6 +66,10 @@ class HomeViewModel extends ChangeNotifier {
 
     SharedPreferences.getInstance().then((pref) {
       di<HomeViewModel>().username = pref.getString('username') ?? '';
+    });
+
+    SharedPreferences.getInstance().then((pref) {
+      di<HomeViewModel>().deviceId = pref.getString('deviceId') ?? '';
     });
   }
 }
