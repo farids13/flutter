@@ -4,6 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -52,7 +53,6 @@ class _SplashPageState extends State<SplashPage> {
   Future<void> _getId() async {
     var deviceInfo = DeviceInfoPlugin();
     if (Platform.isIOS) {
-      // import 'dart:io'
       var iosDeviceInfo = await deviceInfo.iosInfo;
       SharedPreferences.getInstance().then((value) {
         value.setString(
@@ -64,5 +64,8 @@ class _SplashPageState extends State<SplashPage> {
         value.setString("deviceId", androidDeviceInfo.id);
       });
     }
+    SharedPreferences.getInstance().then((value) {
+      value.setString("deviceIdUUID", Uuid().v4());
+    });
   }
 }
